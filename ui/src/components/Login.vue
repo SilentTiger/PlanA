@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>Shadow Talk</h1>
+  <div class="login">
   </div>
 </template>
 
@@ -16,10 +15,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1{
-  font-weight: 800;
-  font-size: 206px;
-  color: #000;
-  text-shadow: 20px 20px 30px #333;
+.login{
+}
+input {
+  text-align: center;
+  background-color: transparent;
+  color: #666;
+  border: none;
+  font-size: 32px;
+  margin-top: 150px;
+  width: 240px;
 }
 </style>
