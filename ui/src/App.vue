@@ -5,15 +5,13 @@
 </template>
 
 <script>
-import './assets/normalize.css';
-
 export default {
   name: 'app'
 }
 </script>
 
 <style>
-@import './assets/normalize';
+@import './assets/normalize.css';
 html,body {
   height: 100%;
   width: 100%;
