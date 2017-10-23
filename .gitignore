@@ -5,3 +5,5 @@ npm-debug.log
 
 /connector/**/*.js
 /website/**/*.js
+**/.nyc_output/
+**/coverage/

@@ -8,4 +8,5 @@ before('init test enviroment', function (done) {
 
 after('all test finished', function (done) {
   done()
+  process.exit();
 })
