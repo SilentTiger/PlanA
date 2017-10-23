@@ -28,3 +28,23 @@ export function createCaptcha(phone: string): Promise<InsertOneWriteOpResult> {
 export function verifyCaptcha(phone: string, captcha: number): Promise<string | null> {
   return db.collection('token').findOne({ p: phone, c: captcha }, { fields: { t: '1' } })
 }
+
+/**
+ * 验证用户手机号及密码并返回token
+ * @param phone 
+ * @param pwd 用户密码
+ */
+export function verifyPwd(phone: string, pwd: string): Promise<Boolean>{
+  return new Promise((resolve, reject) => {
+    db.collection('user').findOne({ p: phone, pwd: pwd }).then(res => {
+      if (res !== null) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    }).catch(err => {
+      logger.error('verify pwd error: ', err)
+      reject(false)
+    })
+  })
+}
