@@ -1,15 +1,15 @@
 export function log(...params: any[]) {
-  console.log(params)
+  console.log.apply(null, params)
 }
 
 export function debug(...params: any[]) {
-  console.debug(params)
+  console.debug.apply(null, params)
 }
 
 export function warn(...params: any[]) {
-  console.warn(params)
+  console.warn.apply(null, params)
 }
 
 export function error(...params: any[]) {
-  console.error(params)
+  console.error.apply(null, params)
 }

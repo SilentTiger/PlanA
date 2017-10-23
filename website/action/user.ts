@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import db from '../service/db'
 import * as log from '../service/log'
 import { ajaxReturn } from '../util'
 import { RES_CODE } from '../enum'

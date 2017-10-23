@@ -4,18 +4,22 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/",
+    "converage": ""
   },
   "author": "cia.fbi.007@hotmail.com",
   "license": "ISC",
   "dependencies": {
-    "@types/bluebird": "^3.5.11",
-    "express": "^4.15.4",
-    "knex": "^0.13.0",
-    "mysql": "^2.14.1"
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.16",
     "@types/express": "^4.0.37",
-    "@types/knex": "0.0.61"
+    "@types/mocha": "^2.2.43",
+    "@types/mongodb": "^2.2.14",
+    "@types/supertest": "^2.0.3",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   }
 }
