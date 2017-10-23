@@ -37,3 +37,5 @@ export class m_user extends Model {
    */
   ct: Date = new Date()
 }
+
+export default m_user

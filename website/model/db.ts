@@ -1,7 +1,7 @@
 import { MongoClient, Db } from 'mongodb';
 import * as logger from '../service/log';
 
-let db: Db | null = null;
+let db: Db;
 
 function connect() {
   return new Promise((resolve, reject) => {

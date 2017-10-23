@@ -35,3 +35,5 @@ export class m_room extends Model {
    */
   ct: Date = new Date
 }
+
+export default m_room
