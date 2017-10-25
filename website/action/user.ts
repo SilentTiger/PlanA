@@ -42,17 +42,22 @@ export function verifyCaptcha(req: Request, res: Response) {
 /**
  * 输入用户密码登陆
  */
-export function login(req: Request, res: Response) {
-}
+export function verifyPwd(req: Request, res: Response) {
+  user_service.verifyPwd(req.params['phone'], req.params['pwd']).then(result => {
+    let code = RES_CODE.ERROR
+    let msg = 'server error'
+    let data = undefined
 
-/**
- * 更新个人资料
- */
-export function updateProfile(req: Request, res: Response) {
-}
+    if (result !== null) {
+      code = RES_CODE.OK
+      data = {
+        token: result
+      }
+    } else if (result === null) {
+      code = RES_CODE.NOT_FOUNT
+      msg = 'invalid password or user not exist'
+    }
 
-/**
- * 更新手机号
- */
-export function changePhone(req: Request, res: Response) {
+    ajaxReturn(res, code, msg, data);
+  })
 }

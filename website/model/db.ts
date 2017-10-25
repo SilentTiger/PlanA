@@ -2,6 +2,7 @@ import { MongoClient, Db } from 'mongodb';
 import * as logger from '../service/log';
 
 let db: Db;
+let db_connected: Boolean = false
 
 function connect() {
   return new Promise((resolve, reject) => {
@@ -12,6 +13,8 @@ function connect() {
         return
       }
       db = database
+      db_connected = true
+      console.log('database connected')
       resolve()
     })
   })
@@ -25,5 +28,6 @@ class Model {
 export {
   connect,
   db,
+  db_connected,
   Model
 }

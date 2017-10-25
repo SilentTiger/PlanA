@@ -49,7 +49,7 @@ export function verifyCaptcha(phone: string, captcha: number): Promise<string | 
  * @param pwd 用户密码
  */
 export function verifyPwd(phone: string, pwd: string): Promise<String | null> {
-  return db.collection('user').findOne({ p: phone, pwd: pwd }).then(res => {
+  return db.collection('user').findOne({ p: phone, pw: pwd }).then(res => {
     if (res !== null) {
       let tokenModel = new m_token(phone)
       tokenModel.u = (<m_user>res)._id.toHexString()
