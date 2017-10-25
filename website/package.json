@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha ./test/",
-    "test-cover": "cross-env NODE_ENV=test nyc --reporter=html mocha"
+    "test-c": "cross-env NODE_ENV=test nyc --reporter=html mocha"
   },
   "author": "cia.fbi.007@hotmail.com",
   "license": "ISC",
