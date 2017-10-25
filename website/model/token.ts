@@ -1,4 +1,5 @@
 import { Model } from './db'
+import { ObjectId } from 'mongodb';
 
 export class m_token extends Model {
   constructor(phone: String) {
@@ -6,22 +7,27 @@ export class m_token extends Model {
     this.p = phone
   }
 
+  _id: ObjectId
+  /**
+   * uid
+   */
+  u: String = ''
   /**
    * phone
    */
-  p: String
+  p: String = ''
   /**
    * capture
    */
-  c: Number
+  c: Number = 0
   /**
    * token
    */
-  t: String
+  t: String = ''
   /**
    * createTime
    */
-  ct:Date = new Date()
+  ct: Date = new Date()
 }
 
 export default m_token

@@ -1,18 +1,20 @@
 import { Model } from './db'
+import { ObjectId } from 'mongodb';
 
 export class m_room extends Model {
   constructor() {
     super()
   }
 
+  _id: ObjectId
   /**
    *creator
    */
-  c: String
+  c: String = ''
   /**
    * users
    */
-  u: Array<String>
+  u: Array<String> = []
   /**
    * messages
    */
@@ -29,7 +31,7 @@ export class m_room extends Model {
      * time
      */
     t: Date
-  }>
+  }> = []
   /**
    * createTime
    */

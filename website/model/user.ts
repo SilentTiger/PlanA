@@ -1,37 +1,40 @@
 import { Model } from './db'
+import { ObjectId } from 'mongodb';
 
 export class m_user extends Model {
-  constructor() {
+  constructor(phone: string) {
     super()
+    this.p = phone
   }
+  _id: ObjectId
   /**
    * name
    */
-  n: String
+  n: String = ''
   /**
    * phone
    */
-  p: String
+  p: String = ''
   /**
    * pwd
    */
-  pw: String
+  pw: String = ''
   /**
    * avatar
    */
-  a: String
+  a: String = ''
   /**
    * profile
    */
-  pf: String
+  pf: String = ''
   /**
    * rooms
    */
-  r: Array<String>
+  r: Array<String> = []
   /**
    * contacts
    */
-  c: Array<String>
+  c: Array<String> = []
   /**
    * createTime
    */
