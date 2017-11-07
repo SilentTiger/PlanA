@@ -13,3 +13,25 @@ export const guid = (function (): () => string {
     return s8() + s8() + s8() + s8();
   }
 })();
+
+export class Counter {
+  count: number = 0
+  cb: Function
+  constructor(count: number, cb: Function) {
+    this.count = count
+    this.cb = cb
+  }
+  add(step: number) {
+    this.count -= step
+    this.tryTrigger()
+  }
+  minus(step: number) {
+    this.count += step
+    this.tryTrigger()
+  }
+  private tryTrigger() {
+    if (this.count === 0) {
+      this.cb()
+    }
+  }
+}

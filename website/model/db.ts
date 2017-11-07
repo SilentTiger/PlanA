@@ -1,11 +1,17 @@
-import { MongoClient, Db } from 'mongodb';
-import * as logger from '../service/log';
+import { MongoClient, Db } from 'mongodb'
+import * as Redis from 'ioredis'
+import * as logger from '../service/log'
+import { Counter } from '../util'
 
-let db: Db;
+let db: Db
 let db_connected: Boolean = false
+
+let rds: Redis.Redis
+let rds_connected: Boolean = false
 
 function connect() {
   return new Promise((resolve, reject) => {
+    let counter = new Counter(2, () => { resolve() });
     MongoClient.connect('mongodb://192.168.37.185:27017/plan_a', (err, database) => {
       if (err) {
         logger.error('connect to database error: ', err)
@@ -15,7 +21,17 @@ function connect() {
       db = database
       db_connected = true
       console.log('database connected')
-      resolve()
+      counter.add(1)
+    })
+
+    rds = new Redis(6379, '192.168.37.185')
+    rds.on('connect', () => {
+      console.log('redis connected')
+      counter.add(1)
+    })
+    rds.on('error', (err) => {
+      logger.error('connect to redis error: ', err)
+      reject(new Error('Connect to redis error.'))
     })
   })
 }
