@@ -61,3 +61,20 @@ export function verifyPwd(req: Request, res: Response) {
     ajaxReturn(res, code, msg, data);
   })
 }
+
+/**
+ * 验证token并返回用户数据
+ */
+export function verifyToken(req: Request, res: Response) {
+  user_service.verifyToken(req.params['token']).then(result => {
+    let code = RES_CODE.DENIED
+    let msg = 'invalid token'
+    let data = undefined
+    if (result !== null) {
+      code = RES_CODE.OK
+      msg = ''
+      data = result
+    }
+    ajaxReturn(res, code, msg, data)
+  })
+}

@@ -46,4 +46,24 @@ describe('first test case', function () {
       }
     })
   })
+
+  it('should verify token', function (done) {
+    let userModel = new m_user(phone)
+    userModel.pw = 'ooxxoxox'
+    db.collection('user').findOneAndUpdate({ p: phone, pw: 'ooxxoxox' }, userModel, { upsert: true }).then(userRes => {
+      if (userRes.ok === 1) {
+        request(server).get(`/user/verifyPwd/${phone}/${userModel.pw}`).then(res => {
+          let token = res.body.data.token
+          request(server).get(`/user/verifyToken/${token}xx`).then(res => {
+            expect(res.body.code).eq(403)
+          }).then(() => {
+            request(server).get(`/user/verifyToken/${token}`).then(res => {
+              expect(res.body.code).eq(200)
+              done()
+            })
+          })
+        })
+      }
+    })
+  })
 })

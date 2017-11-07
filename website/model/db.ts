@@ -6,7 +6,7 @@ let db_connected: Boolean = false
 
 function connect() {
   return new Promise((resolve, reject) => {
-    MongoClient.connect('mongodb://192.168.37.139:27017/plan_a', (err, database) => {
+    MongoClient.connect('mongodb://192.168.37.185:27017/plan_a', (err, database) => {
       if (err) {
         logger.error('connect to database error: ', err)
         reject(new Error('Connect to database error.'))

@@ -2,7 +2,7 @@ import { Model } from './db'
 import { ObjectId } from 'mongodb';
 
 export class m_token extends Model {
-  constructor(phone: String) {
+  constructor(phone: string) {
     super()
     this.p = phone
   }
@@ -11,11 +11,11 @@ export class m_token extends Model {
   /**
    * uid
    */
-  u: String = ''
+  u: string = ''
   /**
    * phone
    */
-  p: String = ''
+  p: string = ''
   /**
    * capture
    */
@@ -23,7 +23,7 @@ export class m_token extends Model {
   /**
    * token
    */
-  t: String = ''
+  t: string = ''
   /**
    * createTime
    */

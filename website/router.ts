@@ -13,5 +13,6 @@ router.get('/',function(req, res){
 router.get('/user/getCaptcha/:phone', userAction.getCaptcha)
 router.get('/user/verifyCaptcha/:phone/:captcha', userAction.verifyCaptcha)
 router.get('/user/verifyPwd/:phone/:pwd', userAction.verifyPwd)
+router.get('/user/verifyToken/:token', userAction.verifyToken)
 
 export default router

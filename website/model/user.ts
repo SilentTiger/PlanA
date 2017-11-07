@@ -10,31 +10,31 @@ export class m_user extends Model {
   /**
    * name
    */
-  n: String = ''
+  n: string = ''
   /**
    * phone
    */
-  p: String = ''
+  p: string = ''
   /**
    * pwd
    */
-  pw: String = ''
+  pw: string = ''
   /**
    * avatar
    */
-  a: String = ''
+  a: string = ''
   /**
    * profile
    */
-  pf: String = ''
+  pf: string = ''
   /**
    * rooms
    */
-  r: Array<String> = []
+  r: Array<string> = []
   /**
    * contacts
    */
-  c: Array<String> = []
+  c: Array<string> = []
   /**
    * createTime
    */

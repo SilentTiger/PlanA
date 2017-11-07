@@ -3,7 +3,7 @@ import { guid } from '../util'
 import { db } from '../model/db'
 import m_token from '../model/token'
 import m_user from '../model/user'
-import { InsertOneWriteOpResult } from 'mongodb';
+import { InsertOneWriteOpResult, ObjectID } from 'mongodb';
 
 /**
  * 生成一个验证码
@@ -45,17 +45,17 @@ export function verifyCaptcha(phone: string, captcha: number): Promise<string | 
 
 /**
  * 验证用户手机号及密码并返回token
- * @param phone 
+ * @param phone 用户手机号 
  * @param pwd 用户密码
  */
 export function verifyPwd(phone: string, pwd: string): Promise<String | null> {
   return db.collection('user').findOne({ p: phone, pw: pwd }).then(res => {
-    if (res !== null) {
+    if (res) {
       let tokenModel = new m_token(phone)
       tokenModel.u = (<m_user>res)._id.toHexString()
       tokenModel.c = Math.floor(Math.random() * 9 + 1) * 10000000 + Math.floor(Math.random() * 10000000)
       tokenModel.t = guid()
-      
+
       return db.collection('token').insertOne(tokenModel).then(res => {
         if (res.result.ok === 1) {
           return tokenModel.t
@@ -69,5 +69,20 @@ export function verifyPwd(phone: string, pwd: string): Promise<String | null> {
   }).catch(err => {
     logger.error('verify pwd error: ', err)
     return null
+  })
+}
+
+/**
+ * 根据token获取用户数据
+ * @param token 临时token
+ */
+export function verifyToken(token: string): Promise<m_user | null> {
+  return db.collection('token').findOne({ t: token }).then(res => {
+    if (res) {
+      let tokenModel = <m_token>res
+      return db.collection('user').findOne({ _id: new ObjectID(tokenModel.u) })
+    } else {
+      return null
+    }
   })
 }
