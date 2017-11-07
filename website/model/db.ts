@@ -26,6 +26,7 @@ function connect() {
 
     rds = new Redis(6379, '192.168.37.185')
     rds.on('connect', () => {
+      rds_connected = true
       console.log('redis connected')
       counter.add(1)
     })
@@ -45,5 +46,7 @@ export {
   connect,
   db,
   db_connected,
+  rds,
+  rds_connected,
   Model
 }
