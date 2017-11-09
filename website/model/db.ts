@@ -12,7 +12,7 @@ let rds_connected: Boolean = false
 function connect() {
   return new Promise((resolve, reject) => {
     let counter = new Counter(2, () => { resolve() });
-    MongoClient.connect('mongodb://192.168.37.185:27017/plan_a', (err, database) => {
+    MongoClient.connect('mongodb://192.168.37.86:27017/plan_a', (err, database) => {
       if (err) {
         logger.error('connect to database error: ', err)
         reject(new Error('Connect to database error.'))
@@ -24,7 +24,7 @@ function connect() {
       counter.add(1)
     })
 
-    rds = new Redis(6379, '192.168.37.185')
+    rds = new Redis(6379, '192.168.37.86', { db: 0 })
     rds.on('connect', () => {
       rds_connected = true
       console.log('redis connected')
@@ -44,7 +44,7 @@ class Model {
 
 class RedisModel {
   constructor() {
-    
+
   }
 }
 

@@ -6,7 +6,7 @@ import { m_user } from '../model/m_user';
 import { m_token } from '../model/m_token';
 
 
-describe('first test case', function () {
+describe('test user service', function () {
   let phone = '18627098826';
   it('should create a captcha', function (done) {
     request(server).get(`/user/getCaptcha/${phone}`).then(res => {
