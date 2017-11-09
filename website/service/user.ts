@@ -2,7 +2,7 @@ import * as logger from './log'
 import { guid } from '../util'
 import { db } from '../model/db'
 import m_user from '../model/m_user'
-import r_token from '../model/r_token'
+import r_token from '../model/m_token'
 
 import { InsertOneWriteOpResult, ObjectID } from 'mongodb';
 

@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { db } from '../model/db'
 import server from '../app'
 import { m_user } from '../model/m_user';
-import { m_token } from '../model/r_token';
+import { m_token } from '../model/m_token';
 
 
 describe('first test case', function () {
