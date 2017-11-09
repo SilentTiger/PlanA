@@ -2,8 +2,8 @@ import * as request from 'supertest'
 import { expect } from 'chai'
 import { db } from '../model/db'
 import server from '../app'
-import { m_user } from '../model/user';
-import { m_token } from '../model/token';
+import { m_user } from '../model/m_user';
+import { m_token } from '../model/r_token';
 
 
 describe('first test case', function () {

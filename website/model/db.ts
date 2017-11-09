@@ -42,11 +42,18 @@ class Model {
   }
 }
 
+class RedisModel {
+  constructor() {
+    
+  }
+}
+
 export {
   connect,
   db,
   db_connected,
   rds,
   rds_connected,
-  Model
+  Model,
+  RedisModel
 }
