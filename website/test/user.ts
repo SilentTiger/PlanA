@@ -1,7 +1,7 @@
 import * as request from 'supertest'
 import { expect } from 'chai'
 import { db } from '../model/db'
-import server from '../app'
+import { webApp as server } from '../app'
 import { m_user } from '../model/m_user';
 import { m_token } from '../model/m_token';
 

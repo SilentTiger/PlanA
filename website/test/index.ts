@@ -1,7 +1,7 @@
 import 'mocha'
 import * as request from 'supertest'
-import server from '../app'
-import {db_connected, rds_connected} from '../model/db'
+import { webApp as server } from '../app'
+import { db_connected, rds_connected } from '../model/db'
 
 before('init test enviroment', function (done) {
   setTimeout(() => {
