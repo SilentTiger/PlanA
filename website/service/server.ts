@@ -8,6 +8,7 @@ import { r_server } from '../model/r_server';
  * @param ip 服务器IP地址
  * @param port 服务器端口号
  * @param pid 服务器进程id
+ * @returns Promis<string> 返回生成的服务器id
  */
 export function regist(ip: string, port: number, pid: number): Promise<string> {
   let server_id = guid()
@@ -56,6 +57,55 @@ export function list(): Promise<Array<r_server>> {
         return
       }
       resolve(Object.keys(res).map(key => { return JSON.parse(res[key]) as r_server }))
+    })
+  })
+}
+
+/**
+ * 激活或冻结指定服务器
+ * @param sid 服务器id
+ */
+export function active(sid: string, actived: boolean): Promise<undefined> {
+  return new Promise((resolve, reject) => {
+    rds.hget('servers', sid, (err: Error, res: string) => {
+      if (err) {
+        logger.error('active get server error ', err)
+        reject(err)
+        return
+      }
+      console.log('start active ', sid, res)
+      let resData = <r_server>JSON.parse(res)
+      Object.assign(resData, { actived: actived })
+      rds.hset('servers', resData.sid, JSON.stringify(resData), (err: Error, result: number) => {
+        if (err) {
+          logger.error('active update server error')
+          reject(err)
+          return
+        }
+        resolve()
+      })
+    })
+  })
+}
+
+/**
+ * ping 方法，用于更新服务器状态更新时间
+ * @param sid 服务器id
+ * @param data 更新的数据
+ */
+export function ping(sid: string, data: any) {
+  rds.hget('servers', sid, (err: Error, res: string) => {
+    if (err) {
+      logger.error('ping get server error ', err)
+      return
+    }
+    let resData = <r_server>JSON.parse(res)
+    Object.assign(resData, data, { time: Date.now() })
+    rds.hset('servers', resData.sid, JSON.stringify(resData), (err: Error, res: number) => {
+      if (err) {
+        logger.error('ping set server error ', err)
+        return
+      }
     })
   })
 }

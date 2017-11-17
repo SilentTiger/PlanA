@@ -10,6 +10,7 @@
   "author": "cia.fbi.007@hotmail.com",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "ioredis": "^3.2.1",
     "mongodb": "^2.2.33",
@@ -17,7 +18,7 @@
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.18",
-    "@types/chai": "^4.0.4",
+    "@types/chai": "^4.0.5",
     "@types/express": "^4.0.39",
     "@types/ioredis": "0.0.27",
     "@types/mocha": "^2.2.44",

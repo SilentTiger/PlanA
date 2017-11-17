@@ -19,5 +19,7 @@ router.get('/user/verifyToken/:token', userAction.verifyToken)
 router.get('/server/regist', serverAction.regist)
 router.get('/server/unregist', serverAction.unregist)
 router.get('/server/list', serverAction.list)
+router.get('/server/active', serverAction.active)
+router.post('/server/ping', serverAction.ping)
 
 export default router

@@ -35,7 +35,7 @@ export function regist(req: Request, res: Response) {
  * 移除一个服务节点，将服务节点挂起
  */
 export function unregist(req: Request, res: Response) {
-  let { sid }: { sid: string } = req.query
+  const { sid }: { sid: string } = req.query
   if (sid.length === 32) {
     server_service.unregist(sid).then(count => {
       ajaxReturn(res, count > 0 ? RES_CODE.OK : RES_CODE.NOT_FOUNT)
@@ -45,6 +45,31 @@ export function unregist(req: Request, res: Response) {
   } else {
     ajaxReturn(res, RES_CODE.BAD_REQUEST, 'error params')
   }
+}
+
+/**
+ * 激活或冻结一个connector
+ */
+export function active(req: Request, res: Response) {
+  const { sid, actived }: { sid: string, actived: boolean } = req.query
+  if (sid.length === 32) {
+    server_service.active(sid, actived).then(() => {
+      ajaxReturn(res, RES_CODE.OK)
+    }).catch(err => {
+      ajaxReturn(res, RES_CODE.ERROR, 'active server error')
+    })
+  } else {
+    ajaxReturn(res, RES_CODE.BAD_REQUEST, 'error params')
+  }
+}
+
+/**
+ * ping 方法，更新服务器状态信息
+ */
+export function ping(req: Request, res: Response) {
+  const { sid, ...data }: { sid: string, data: any } = req.body
+  server_service.ping(sid, data)
+  ajaxReturn(res, RES_CODE.OK)
 }
 
 /**

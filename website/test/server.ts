@@ -18,6 +18,19 @@ describe('test server service', function () {
     })
   })
 
+  it('should active server success', function (done) {
+    request(server).get(`/server/active?sid=${server_id}&actived=true`).then(res => {
+      expect(res.body.code).eq(200)
+      done()
+    })
+  })
+
+  it('should ping server success', function (done) {
+    request(server).post(`/server/ping`).type('json').send({ sid: server_id, l_conn: 1 }).then(res => {
+      done()
+    })
+  })
+
   it('should failed to unregist server cause bad sid', function (done) {
     request(server).get('/server/unregist?sid=xxxx').then(res => {
       expect(res.body.code).eq(400)

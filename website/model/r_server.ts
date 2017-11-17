@@ -22,9 +22,17 @@ export class r_server extends RedisModel {
    */
   pid: number
   /**
+   * 激活状态
+   */
+  actived: boolean = false
+  /**
    * 服务器当前连接数
    */
   l_conn: number = 0
+  /**
+   * 服务器上一次更新状态时间戳
+   */
+  time: number = 0
 }
 
 export default r_server

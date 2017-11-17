@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import * as path from 'path'
 import router from './router'
 import * as db from './model/db'
@@ -7,6 +8,8 @@ import * as ws from 'ws'
 
 const webApp: express.Express = express()
 const wsApp = new ws.Server({ port: 3001 })
+
+webApp.use(bodyParser.json())
 
 db.connect().then(() => {
   webApp.use(router)
