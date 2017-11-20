@@ -118,6 +118,7 @@ setInterval(() => {
     servers.filter(s => {
       return now - s.time > CONNECTOR_TIMEOUT && s.actived
     }).forEach(s => {
+      logger.warn(`server inactive automatically: ${JSON.stringify(s)}`)
       active(s.sid, false).catch(err => {
         logger.error('check connector active server error ', err)
       })
