@@ -51,7 +51,7 @@ export function unregist(req: Request, res: Response) {
  * 激活或冻结一个connector
  */
 export function active(req: Request, res: Response) {
-  const { sid, actived }: { sid: string, actived: boolean } = req.query
+  const { sid, actived }: { sid: string, actived: boolean } = req.body
   if (sid.length === 32) {
     server_service.active(sid, actived).then(() => {
       ajaxReturn(res, RES_CODE.OK)

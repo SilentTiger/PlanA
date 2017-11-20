@@ -5,6 +5,7 @@ import { webApp as server } from '../app'
 import { m_user } from '../model/m_user';
 import { m_token } from '../model/m_token';
 import { Counter } from '../util'
+import { r_server } from '../model/r_server';
 
 
 describe('test server service', function () {
@@ -13,22 +14,49 @@ describe('test server service', function () {
     request(server).get(`/server/regist?ip=111&port=1234&pid=333`).then(res => {
       expect(res.body.code).eq(200)
       server_id = res.body.data.server_id
-      console.log(server_id)
       done()
     })
   })
 
   it('should active server success', function (done) {
-    request(server).get(`/server/active?sid=${server_id}&actived=true`).then(res => {
+    request(server).post(`/server/active`).type('json').send({ sid: server_id, actived: true }).then(res => {
       expect(res.body.code).eq(200)
       done()
     })
   })
 
   it('should ping server success', function (done) {
-    request(server).post(`/server/ping`).type('json').send({ sid: server_id, l_conn: 1 }).then(res => {
+    this.timeout(2100)
+    setTimeout(() => {
+      request(server).post(`/server/ping`).type('json').send({ sid: server_id, l_conn: 1 }).then(res => {
+        done()
+      })
+    }, 2000)
+  })
+
+  it('should not inactive the connector', function (done) {
+    request(server).get('/server/list').then(res => {
+      let target: r_server = (res.body.data.filter((s: r_server) => {
+        return s.sid === server_id
+      }))[0]
+
+      expect(target.actived).eq(true)
       done()
     })
+  })
+
+  it('should inactive the connector', function (done) {
+    this.timeout(4100)
+    setTimeout(() => { 
+      request(server).get('/server/list').then(res => {
+        let target: r_server = (res.body.data.filter((s: r_server) => {
+          return s.sid === server_id
+        }))[0]
+  
+        expect(target.actived).eq(false)
+        done()
+      })
+    }, 4000)
   })
 
   it('should failed to unregist server cause bad sid', function (done) {
@@ -58,4 +86,5 @@ describe('test server service', function () {
       done()
     })
   })
+
 })

@@ -2,6 +2,7 @@ import * as logger from './log'
 import { db, rds } from '../model/db'
 import { guid } from '../util'
 import { r_server } from '../model/r_server';
+import { CONNECTOR_TIMEOUT } from '../enum'
 
 /**
  * 注册一个connector
@@ -109,3 +110,19 @@ export function ping(sid: string, data: any) {
     })
   })
 }
+
+// 每秒检查各个 connector 状态更新时间，若超过 3s 则判为冻结
+setInterval(() => {
+  let now = Date.now()
+  list().then(servers => {
+    servers.filter(s => {
+      return now - s.time > CONNECTOR_TIMEOUT && s.actived
+    }).forEach(s => {
+      active(s.sid, false).catch(err => {
+        logger.error('check connector active server error ', err)
+      })
+    })
+  }).catch(err => {
+    logger.error(`check connector error @${(new Date()).toISOString()} `, err)
+  })
+}, 1000)

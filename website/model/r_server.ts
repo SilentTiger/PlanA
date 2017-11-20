@@ -32,7 +32,7 @@ export class r_server extends RedisModel {
   /**
    * 服务器上一次更新状态时间戳
    */
-  time: number = 0
+  time: number = Date.now()
 }
 
 export default r_server
